@@ -12,27 +12,46 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
     <title>Alarm CLock</title>
 </head>
-<body>
+<body class="">
     <div>
-        <div id="alarm-clock">
-            Timer
+        <div class="row mx-0 justify-content-center my-5">
+            <div id="alarm-clock" class="col-3 bg-white p-2 rounded text-center fw-bold shadow">
+        </div>
+        </div>
+        <div class="row mx-0 justify-content-center">
+            <div class="col-10">
+                <div class="form-group d-flex">
+                    <select id="hour-input" class="form-control">
+                    </select>
+                    <select type="text" id="minute-input" class="form-control">
+                    </select>
+                    <select  id="second-input" class="form-control">
+                    </select>
+                    <select id="time-format-input" class="form-control">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                    <button id="set-alaram" onclick="setAlaram()">Set Alarm</button>
+                </div>
+
+            </div>
         </div>
         <div>
-            <input type="text" id="hour-imput">
-            <input type="text" id="minute-input">
-            <input type="text" id="second-input">
-            <select id="time-format-input">
-                <option value="AM">AM</option>
-                <option value="PM">PM</option>
-            </select>
-            <button id="set-alaram" onclick="setAlaram()">Set Alarm</button>
+            Upcoming Alarms:
+        </div>
+        <div id="upcoming-alarm">
+
         </div>
     </div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
 <script>
     var timer = document.getElementById('alarm-clock');
-    var alaramTime = document.getElementById('alarm-time');
+    var alaramHour = document.getElementById('hour-input');
+    var alaramMinutes = document.getElementById('minute-input');
+    var alaramSeconds = document.getElementById('second-input');
+    var alaramTimeFormat = document.getElementById('time-format-input');
+    var upcomingAlarm = document.getElementById('upcoming-alarm');
     var currentTime;
     setInterval(()=>{
        var showTime = getCurrentTime();
@@ -55,8 +74,59 @@
         seconds = seconds.toString().length<2 ? "0"+seconds : seconds;
         return hour+":"+min+":"+seconds+" "+timeFormat;
     }
+    for (let i= 0; i< 60;i++) {
+        var option = document.createElement("option");
+        if(i<10){
+            i="0"+i;
+        }
+        option.text=i;
+        alaramMinutes.add(option);
+        // console.log(i);
+    }
+    for (let i= 1; i< 12;i++) {
+        var option = document.createElement("option");
+        if(i<10){
+            i="0"+i;
+        }
+        option.text=i;
+        alaramHour.add(option);
+        // console.log(i);
+    }
+    for (let i= 0; i< 60;i++) {
+        var option = document.createElement("option");
+        if(i<10){
+            i="0"+i;
+        }
+        option.text=i;
+        alaramSeconds.add(option);
+        // console.log(i);
+    }
     function setAlaram() {
-        console.log(alaramTime.value);
+        var alarm = alaramHour.value+":"+alaramMinutes.value+":"+alaramSeconds.value+"  "+alaramTimeFormat.value;
+        
+        var div = document.createElement("div");
+        div.className="alarm-list-block";
+        var p = document.createElement("p");
+        p.className="alarm-time";
+        var deletAlarm = document.createElement("button");
+        p.innerHTML=alarm;
+        deletAlarm.innerHTML="Delete";
+        deletAlarm.className="delete-alarm";
+        div.appendChild(p);
+        div.appendChild(deletAlarm);
+        upcomingAlarm.appendChild(div);
+        
+        var deleteBtn = document.getElementsByClassName('delete-alarm');
+        var alarmTime = document.getElementsByClassName('alarm-time');
+        for (let i = 0; i < deleteBtn.length; i++) {
+            console.log(i);
+            deleteBtn[i].onclick= ()=> {
+                console.log("hi"+i);
+                var alarmList = deleteBtn[i].parentNode;
+                alarmList.style.display="none";
+            }
+            
+        }
     }
 </script>
 </body>
