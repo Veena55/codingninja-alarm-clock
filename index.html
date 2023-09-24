@@ -12,122 +12,49 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
     <title>Alarm CLock</title>
 </head>
+
 <body class="">
     <div>
         <div class="row mx-0 justify-content-center my-5">
             <div id="alarm-clock" class="col-3 bg-white p-2 rounded text-center fw-bold shadow">
+            </div>
         </div>
-        </div>
-        <div class="row mx-0 justify-content-center">
-            <div class="col-10">
-                <div class="form-group d-flex">
+        <div>
+            <div class="row mx-0 justify-content-center align-items-center">
+                <div class="col-1">
                     <select id="hour-input" class="form-control">
                     </select>
+                </div>
+                <div class="col-1">
                     <select type="text" id="minute-input" class="form-control">
                     </select>
-                    <select  id="second-input" class="form-control">
+                </div>
+                <div class="col-1">
+                    <select id="second-input" class="form-control">
                     </select>
+                </div>
+                <div class="col-1">
                     <select id="time-format-input" class="form-control">
                         <option value="AM">AM</option>
                         <option value="PM">PM</option>
                     </select>
-                    <button id="set-alaram" onclick="setAlaram()">Set Alarm</button>
                 </div>
-
+                <div class="col-2">
+                    <button id="set-alaram" class="form-control btn btn-primary my-5" onclick="setAlaram()">Add Alarm</button>
+                </div>
             </div>
         </div>
-        <div>
-            Upcoming Alarms:
+        <hr>
+        <div class="my-5 text-center">
+           <h5 class="text-primary"> Upcoming Alarms</h5>
         </div>
-        <div id="upcoming-alarm">
-
+        <div id="upcoming-alarm" class="mx-auto" style="width: 60%;">
+           
         </div>
     </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
-<script>
-    var timer = document.getElementById('alarm-clock');
-    var alaramHour = document.getElementById('hour-input');
-    var alaramMinutes = document.getElementById('minute-input');
-    var alaramSeconds = document.getElementById('second-input');
-    var alaramTimeFormat = document.getElementById('time-format-input');
-    var upcomingAlarm = document.getElementById('upcoming-alarm');
-    var currentTime;
-    setInterval(()=>{
-       var showTime = getCurrentTime();
-       
-       timer.innerText= showTime;
-    },1000)
-    function getCurrentTime() {
-        currentTime = new Date();
-        var hour = currentTime.getHours();
-        var min = currentTime.getMinutes();
-        var seconds =  currentTime.getSeconds();
-        // Check whether AM or PM
-        var timeFormat = hour>=12 ? "PM" : "AM";
-        // Coverting the hour in 12-hour format
-        hour=hour%12;
-        //Showing '0' as '12'
-        hour = hour?hour:12;
-        hour = hour.toString().length<2 ? "0"+hour : hour;
-        min = min.toString().length<2 ? "0"+min : min;
-        seconds = seconds.toString().length<2 ? "0"+seconds : seconds;
-        return hour+":"+min+":"+seconds+" "+timeFormat;
-    }
-    for (let i= 0; i< 60;i++) {
-        var option = document.createElement("option");
-        if(i<10){
-            i="0"+i;
-        }
-        option.text=i;
-        alaramMinutes.add(option);
-        // console.log(i);
-    }
-    for (let i= 1; i< 12;i++) {
-        var option = document.createElement("option");
-        if(i<10){
-            i="0"+i;
-        }
-        option.text=i;
-        alaramHour.add(option);
-        // console.log(i);
-    }
-    for (let i= 0; i< 60;i++) {
-        var option = document.createElement("option");
-        if(i<10){
-            i="0"+i;
-        }
-        option.text=i;
-        alaramSeconds.add(option);
-        // console.log(i);
-    }
-    function setAlaram() {
-        var alarm = alaramHour.value+":"+alaramMinutes.value+":"+alaramSeconds.value+"  "+alaramTimeFormat.value;
-        
-        var div = document.createElement("div");
-        div.className="alarm-list-block";
-        var p = document.createElement("p");
-        p.className="alarm-time";
-        var deletAlarm = document.createElement("button");
-        p.innerHTML=alarm;
-        deletAlarm.innerHTML="Delete";
-        deletAlarm.className="delete-alarm";
-        div.appendChild(p);
-        div.appendChild(deletAlarm);
-        upcomingAlarm.appendChild(div);
-        
-        var deleteBtn = document.getElementsByClassName('delete-alarm');
-        var alarmTime = document.getElementsByClassName('alarm-time');
-        for (let i = 0; i < deleteBtn.length; i++) {
-            console.log(i);
-            deleteBtn[i].onclick= ()=> {
-                console.log("hi"+i);
-                var alarmList = deleteBtn[i].parentNode;
-                alarmList.style.display="none";
-            }
-            
-        }
-    }
-</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
+    <script src="./script.js"></script>
 </body>
+
 </html>
