@@ -80,6 +80,7 @@ function setAlaram() {
         }
 
     }
+    showAllalrams();
 }
 // calling the fuction to read data from cookie.
 setInterval(showAllalrams,1000);
@@ -87,12 +88,11 @@ function showAllalrams() {
     currentTime=timer.innerText;
     let x = document.cookie.split(',');
     for(var i=0; i<x.length; i++) {
-
 // Remove all white space from both strings
 currentTime = currentTime.replace(/\s/g, '');
 x[i] = x[i].replace(/\s/g, '');
         if(x[i]===currentTime) {
-            alert("Reminder, Hello There!")
+            alert("Reminder, Hello There!");
         }
     }
 }
